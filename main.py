@@ -6,7 +6,6 @@
 #
 # candidates = []
 #
-#
 # def createCandidate(firstName, lastName, balsaiApylinkese, balsaiPastu):
 #     candidate = {
 #         'firstName': firstName,
@@ -70,59 +69,65 @@
 # print('2024 m. Rinkimus laimejo:')
 # vinCandidate(1)
 # readCandidates()
-from operator import index
-
-# def createCandidate(firstName, lastName, surinktiBalsai):
-#     candidate = {
-#         'firstName': firstName,
-#         'lastName': lastName,
-#         'surinktiBalsai': surinktiBalsai,
-#     }
-#     candidates.append(candidate)
-#     print(f'Kandidatas {firstName} {lastName} ')
+# from operator import index
+#
 
 
 
-candidates = [{'Valentinas', 'Bukauskas', 2016, 808},
-              {'Agnė', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 1965, 507}
-              ]
+
+candidates = [
+    ['Valentinas', 'Bukauskas', 20166, 808],
+    ['Valentinas1', 'Bukauskas', 2016, 808],
+    ['Valentinas2', 'Bukauskas', 20189, 808],
+    ['Valentinas3', 'Bukauskas', 201635, 808],
+    ['Agnė', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 1965, 507],
+    ['Agnė1', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 196, 507],
+    ['Agnė2', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 19, 507],
+    ['Agnė3', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 15, 507]
+  ]
 def printInfo():
     print('_______________________________________________')
-    print('1. sarasas 2. ideti 3. update 4. delete 5. end')
     print('1. kandidatai')
-    print('2. surintki balsai spalio 13')
-    print('3. surinkti balsai po antro turo')
-    print('4. maziau surinkes balsu')
-    print('5. isrinktas kandidatas sekanciai kadencijai')
+    print("2. add")
+    print("3. Atnaujinti balsų skaičių")
+    print("4. delete")
+    print("5. filter out left ones")
+    # print('2. surintki balsai spalio 13')
+    # print('3. surinkti balsai po antro turo')
+    # print('4. maziau surinkes balsu')
+    # print('5. isrinktas kandidatas sekanciai kadencijai')
     print('_______________________________________________')
 
-def printCandidate(firstName, lastName, surinktiBalsai, index = 1):
-    print(f'{index}. {firstName} {lastName}, {surinktiBalsai}')
+def printCandidate(vienasKandidatas, index = 1):
+    print(f'{index}. {vienasKandidatas[0]} {vienasKandidatas[1]}, {vienasKandidatas[2]} {vienasKandidatas[3]}')
 
 def printCandidates():
     index = 1
-    for index in candidates:
-        printCandidate(index)
+    for vienasKandidatas in candidates:
+        printCandidate(vienasKandidatas, index)
         index +=1
 
-def addCandidates():
+def addCandidate():
     print('Kandidato Vardas:')
     firstName = input()
     print('Kandidato Pavarde:')
     lastName = input()
     print('kiek kandidatas surinko balsu spalio 13 d.?')
     surinktiBalsai = input()
-
-    print(f'Kandidatas {firstName} {lastName}, {surinktiBalsai} ')
+    candidates.append([firstName,lastName,surinktiBalsai,0])
+    # print(f'Kandidatas {firstName} {lastName}, {surinktiBalsai} ')
 
 def updateCandidate( firstName=None, lastName=None, surinktiBalsai=None):
-    print('Kandidato Vardas:')
-    firstName = input()
-    print('Kandidato Pavarde:')
-    lastName = input()
-    print('kiek kandidatas surinko balsu antrame ture?')
+    # print('Kandidato Vardas:')
+    # firstName = input()
+    # print('Kandidato Pavarde:')
+    # lastName = input()
+    print('Paduokite numeriuką politiko kurio balsai buvo suskaiciuoti')
+    politikas = int(input())
+    print(f'kiek kandidatas {candidates[politikas -1][0]} {candidates[politikas -1][1]} surinko balsu antrame ture?')
     surinktiBalsai = input()
-    print(f'Kandidatas {firstName} {lastName}, antrame ture surinko {surinktiBalsai} balsu ir laimejo rinkimus.')
+    candidates[politikas -1][3] = surinktiBalsai
+    print(f'Kandidatas {candidates[politikas -1][0]} {candidates[politikas -1][1]}3, antrame ture surinko {surinktiBalsai} balsu ir laimejo rinkimus.')
 
 def deleteCandidate(firstName=None, lastName=None, surinktiBalsai=None):
     print('kuris kandidatas surinko maziau balsu?')
@@ -131,14 +136,20 @@ def deleteCandidate(firstName=None, lastName=None, surinktiBalsai=None):
 
 print('2024 LR Seimo rinkimai. Telšių (Nr.40) apygarda')
 
+
+def removeTheLoosers():
+    lst = sorted(candidates, key=lambda x: x[2], reverse=True)
+    return lst[:2]
+
+
 while True:
     printInfo()
-    opt = input()
+    opt = int(input())
     match opt:
         case 1:
-            printCandidate()
+            printCandidates()
         case 2:
-            addCandidates()
+            addCandidate()
             printCandidates()
         case 3:
             updateCandidate()
@@ -147,6 +158,8 @@ while True:
             deleteCandidate()
             printCandidates()
         case 5:
+            candidates = removeTheLoosers()
+        case 6:
             exit(1)
 
 
