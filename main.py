@@ -77,13 +77,8 @@
 
 candidates = [
     ['Valentinas', 'Bukauskas', 20166, 808],
-    ['Valentinas1', 'Bukauskas', 2016, 808],
-    ['Valentinas2', 'Bukauskas', 20189, 808],
-    ['Valentinas3', 'Bukauskas', 201635, 808],
     ['Agnė', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 1965, 507],
-    ['Agnė1', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 196, 507],
-    ['Agnė2', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 19, 507],
-    ['Agnė3', 'JAKAVIČIUTĖ-MILIAUSKIENĖ', 15, 507]
+
   ]
 def printInfo():
     print('_______________________________________________')
@@ -137,9 +132,19 @@ def deleteCandidate(firstName=None, lastName=None, surinktiBalsai=None):
 print('2024 LR Seimo rinkimai. Telšių (Nr.40) apygarda')
 
 
+# def removeTheLoosers():
+#     lst = sorted(candidates, key=lambda x: x[2], reverse=True)
+#     return lst[:2]
+
 def removeTheLoosers():
     lst = sorted(candidates, key=lambda x: x[2], reverse=True)
     return lst[:2]
+topCandidates = removeTheLoosers()
+
+print('Kandidatai su didžiausiu balsų skaičiumi:')
+for candidate in topCandidates:
+    print(f"{candidate[0]} {candidate[1]}: {candidate[2]} balsai")
+
 
 
 while True:
